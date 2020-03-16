@@ -14,7 +14,7 @@ const getToken = async code => {
     });
     return res.data.access_token;
   } catch (err) {
-    console.log("❗ " + err);
+    console.log(`❗ ${err}`);
     throw new ErrorHandler(500, "error getting github token");
   }
 };
@@ -27,7 +27,7 @@ const getUser = async token => {
     const res = await axios.get("https://api.github.com/user", config);
     return res.data;
   } catch (err) {
-    console.log("❗ " + err);
+    console.log(`❗ ${err}`);
     throw new ErrorHandler(500, "error getting github user");
   }
 };

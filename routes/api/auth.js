@@ -19,10 +19,16 @@ userSignin = async (req, res) => {
         githubUser.id,
         true
       );
-      const jwt = generateToken(githubUser.login, mongodbUser._id, githubUser.avatar_url, token);
-      return res.json({token: jwt});
+      const jwt = generateToken(
+        githubUser.login,
+        mongodbUser._id,
+        githubUser.avatar_url,
+        token
+      );
+      return res.json({ token: jwt });
     }
   } catch (err) {
+    console.log(`❗ ${err}`);
     // TODO: ichsa code
     return res.status(err.statusCode || 500).json(err);
   }

@@ -14,4 +14,4 @@ const generateToken = (name, id, avatarUrl, githubToken) => {
   }
 };
 
-module.exports = generateToken;
+module.exports = { generateToken };
