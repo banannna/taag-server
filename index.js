@@ -5,6 +5,7 @@ const cors = require("cors");
 const app = require("express")();
 const { MONGODB_URI } = require("./config");
 const { initializeApi } = require("./routes");
+const { handleError } = require('./utils/error')
 
 // Connect to MongoDB
 mongoose
@@ -18,6 +19,11 @@ app.use(cors());
 app.use(bodyParser.json());
 
 initializeApi(app);
+
+
+app.use((err, req, res, next) => {
+  handleError(err, res);
+});
 
 http.listen(PORT, function() {
   console.log(`✔ server started. listening on post ${PORT}`);

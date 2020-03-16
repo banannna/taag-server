@@ -1,12 +1,17 @@
 const User = require("../models/User");
+const validation = require("../utils/validation");
+const { ErrorHandler } = require('../utils/error')
 
 const getUser = async (provider, id, createIfDosntExist) => {
+  if (!validation.githubUserId(id))
+        throw new ErrorHandler(400, "github user id not valid");
   try {
     const user = await User.findOne({ [provider]: id });
     if (!user && createIfDosntExist) return createUser(provider, id);
     return user;
   } catch (err) {
     console.log(`❗ ${err}`);
+    throw new ErrorHandler(500, "error getting mongo user");
   }
 };
 
@@ -21,6 +26,7 @@ const createUser = async (provider, id) => {
     return user;
   } catch (err) {
     console.log(`❗ ${err}`);
+    throw new ErrorHandler(500, "error creating new user");
   }
 };
 
