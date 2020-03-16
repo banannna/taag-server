@@ -2,7 +2,8 @@ const router = require("express").Router();
 const githubService = require("../../services/github");
 const mongodbService = require("../../services/mongodb");
 const validation = require("../../utils/validation");
-const { ErrorHandler } = require('../../utils/error')
+const { ErrorHandler } = require("../../utils/error");
+const { generateToken } = require("../../utils/jwt");
 
 userSignin = async (req, res) => {
   try {
@@ -18,10 +19,12 @@ userSignin = async (req, res) => {
         githubUser.id,
         true
       );
-      return res.json(mongodbUser);
+      const jwt = generateToken(githubUser.login, mongodbUser._id, githubUser.avatar_url, token);
+      return res.json({token: jwt});
     }
   } catch (err) {
-    console.log(`❗ ${err}`);
+    // TODO: ichsa code
+    return res.status(err.statusCode || 500).json(err);
   }
 };
 

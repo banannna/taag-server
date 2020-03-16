@@ -2,7 +2,7 @@ const User = require("../models/User");
 const validation = require("../utils/validation");
 const { ErrorHandler } = require('../utils/error')
 
-const getUser = async (provider, id, createIfDosntExist) => {
+const getUser = async (provider, id, createIfDosntExist=false) => {
   if (!validation.githubUserId(id))
         throw new ErrorHandler(400, "github user id not valid");
   try {
