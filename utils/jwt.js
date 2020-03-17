@@ -2,9 +2,9 @@ const { JWT_SECRET, JWT_EXPIRE_TIME } = require("../config");
 const jwt = require("jsonwebtoken");
 const { ErrorHandler } = require("./error");
 
-const generateToken = (name, id, avatarUrl, githubToken) => {
+const generateToken = (name, id, authProvider, githubToken) => {
   try {
-    const data = { name, id, avatarUrl, githubToken };
+    const data = { name, id, authProvider, githubToken };
     return (token = jwt.sign(data, JWT_SECRET, {
       expiresIn: JWT_EXPIRE_TIME
     }));

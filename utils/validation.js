@@ -6,7 +6,7 @@ const githubCode = code => isNotEmpty(code);
 const githubToken = token => isNotEmpty(token);
 const githubUserId = userId => isNotEmpty(userId);
 
-const authProvider = provider => AUTH_PROVIDERS.includes(provider);
+const authProvider = provider => Object.values(AUTH_PROVIDERS).includes(provider);
 
 module.exports = {
   githubCode,

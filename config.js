@@ -9,7 +9,7 @@ const MONGODB_URI = process.env.MONGODB_URI;
 const GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID;
 const GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
 
-const AUTH_PROVIDERS = ["github"];
+const AUTH_PROVIDERS = { github: "github" };
 
 const JWT_SECRET = process.env.JWT_SECRET;
 const JWT_EXPIRE_TIME = 60 * 60 * 24 * 30; // expires in 30 days;

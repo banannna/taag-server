@@ -1,10 +1,18 @@
 const mongoose = require("mongoose");
-
 const Schema = mongoose.Schema;
 
+const AuthProviderSchema = new Schema(
+  {
+    github: {
+      type: String
+    }
+  },
+  { _id: false }
+);
+
 const UserSchema = new Schema({
-	githubAuth: {
-    type: String
+  authProviders: {
+    type: AuthProviderSchema
   }
 });
 
