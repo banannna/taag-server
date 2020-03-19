@@ -1,7 +1,7 @@
-const { getUser } = require("./user");
-const { getToken } = require("./auth");
+const user = require("./user");
+const auth = require("./auth");
 
 module.exports = {
-  getUser,
-  getToken
+  ...user,
+  ...auth
 };
