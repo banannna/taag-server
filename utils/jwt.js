@@ -1,5 +1,5 @@
-const { JWT_SECRET, JWT_EXPIRE_TIME } = rootRequire("config");
 const jwt = require("jsonwebtoken");
+const { JWT_SECRET, JWT_EXPIRE_TIME } = rootRequire("config");
 const { ErrorHandler } = rootRequire("utils/error");
 
 const generateToken = (name, id, authProvider, githubToken) => {

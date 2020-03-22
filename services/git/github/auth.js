@@ -1,7 +1,7 @@
+const axios = require("axios");
 const { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } = rootRequire("config");
 const validation = rootRequire("utils/validation");
 const { ErrorHandler } = rootRequire("utils/error");
-const axios = require("axios");
 
 const getToken = async code => {
   if (!validation.githubCode(code))
