@@ -1,6 +1,6 @@
-const User = require("../../models/User");
-const validation = require("../../utils/validation");
-const { ErrorHandler } = require("../../utils/error");
+const User = rootRequire("models/User");
+const validation = rootRequire("utils/validation");
+const { ErrorHandler } = rootRequire("utils/error");
 
 const getUser = async (provider, id, createIfDosntExist = false) => {
   if (!validation.githubUserId(id))

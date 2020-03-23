@@ -1,6 +1,6 @@
-const validation = require("../../../utils/validation");
-const { ErrorHandler } = require("../../../utils/error");
 const axios = require("axios");
+const validation = rootRequire("utils/validation");
+const { ErrorHandler } = rootRequire("utils/error");
 
 const getUser = async token => {
   if (!validation.githubToken(token))

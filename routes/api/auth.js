@@ -1,9 +1,9 @@
 const router = require("express").Router();
-const gitServices = require("../../services/git");
-const mongodbService = require("../../services/mongodb");
-const validation = require("../../utils/validation");
-const { ErrorHandler } = require("../../utils/error");
-const { generateToken } = require("../../utils/jwt");
+const gitServices = rootRequire("services/git");
+const mongodbService = rootRequire("services/mongodb");
+const validation = rootRequire("utils/validation");
+const { ErrorHandler } = rootRequire("utils/error");
+const { generateToken } = rootRequire("utils/jwt");
 
 userSignin = async (req, res) => {
   try {

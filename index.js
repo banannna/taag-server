@@ -1,11 +1,14 @@
+const path = require('path');
+global.rootRequire = module => require(path.join(__dirname, module));
+
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const express = require("express");
 const http = require("http");
-const { PORT, MONGODB_URI } = require("./config");
-const { initializeApi } = require("./routes");
-const { handleError } = require("./utils/error");
+const { PORT, MONGODB_URI } = rootRequire("config");
+const { initializeApi } = rootRequire("routes");
+const { handleError } = rootRequire("utils/error");
 
 // connect to mongoDB
 mongoose

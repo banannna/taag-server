@@ -1,4 +1,4 @@
-const { AUTH_PROVIDERS } = require("../config");
+const { AUTH_PROVIDERS } = rootRequire("config");
 
 const isNotEmpty = str => str != null && str.toString().trim() != null;
 
