@@ -2,14 +2,14 @@ const router = require("express").Router();
 const gitServices = rootRequire("services/git");
 const mongodbService = rootRequire("services/mongodb");
 const validation = rootRequire("utils/validation");
-const { ErrorHandler } = rootRequire("utils/error");
 const { generateToken } = rootRequire("utils/jwt");
+const errors = rootRequire("consts/errors");
 
 userSignin = async (req, res) => {
   try {
     const authProvider = req.body.authProvider;
     if (!validation.authProvider(authProvider))
-      throw new ErrorHandler(400, "auth provider not supported");
+      throw errors.status400.INVALID_AUTH_PROVIDER;
     const gitService = gitServices[authProvider];
     const code = req.body.code;
     const token = await gitService.getToken(code);

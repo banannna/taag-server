@@ -1,10 +1,9 @@
 const User = rootRequire("models/User");
 const validation = rootRequire("utils/validation");
-const { ErrorHandler } = rootRequire("utils/error");
+const errors = rootRequire("consts/errors");
 
 const getUser = async (provider, id, createIfDosntExist = false) => {
-  if (!validation.githubUserId(id))
-    throw new ErrorHandler(400, "github user id not valid");
+  if (!validation.githubUserId(id)) throw errors.status400.INVALID_USER_ID;
   try {
     const authProvider = `authProviders.${provider}`;
     const user = await User.findOne({ [authProvider]: id });
@@ -12,7 +11,7 @@ const getUser = async (provider, id, createIfDosntExist = false) => {
     return user;
   } catch (err) {
     console.log(`❗ ${err}`);
-    throw new ErrorHandler(500, "error getting mongo user");
+    throw errors.status500.MONGO_DOCUMENT_NOT_FOUND;
   }
 };
 
@@ -24,7 +23,7 @@ const createUser = async (authProvider, id) => {
     return user;
   } catch (err) {
     console.log(`❗ ${err}`);
-    throw new ErrorHandler(500, "error creating new user");
+    throw errors.status500.MONGO_ERROR;
   }
 };
 
