@@ -19,7 +19,6 @@ const getToken = async code => {
     );
     return res.data.access_token;
   } catch (err) {
-    console.log(`❗ ${err}`);
     throw serverError.GITHUB_ERROR;
   }
 };
