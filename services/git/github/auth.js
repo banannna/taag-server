@@ -1,11 +1,10 @@
 const axios = require("axios");
 const { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } = rootRequire("config");
 const validation = rootRequire("utils/validation");
-const { ErrorHandler } = rootRequire("utils/error");
+const { clientError, serverError } = rootRequire("consts/errors");
 
 const getToken = async code => {
-  if (!validation.githubCode(code))
-    throw new ErrorHandler(400, "github code not valid");
+  if (!validation.githubCode(code)) throw clientError.INVALID_GITHUB_CODE;
   try {
     const data = {
       client_id: GITHUB_CLIENT_ID,
@@ -21,7 +20,7 @@ const getToken = async code => {
     return res.data.access_token;
   } catch (err) {
     console.log(`❗ ${err}`);
-    throw new ErrorHandler(500, "error getting github token");
+    throw serverError.GITHUB_ERROR;
   }
 };
 

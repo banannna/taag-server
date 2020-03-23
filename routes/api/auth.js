@@ -2,14 +2,15 @@ const router = require("express").Router();
 const gitServices = rootRequire("services/git");
 const mongodbService = rootRequire("services/mongodb");
 const validation = rootRequire("utils/validation");
-const { ErrorHandler } = rootRequire("utils/error");
 const { generateToken } = rootRequire("utils/jwt");
+const { clientError } = rootRequire("consts/errors");
+const { convertToErrorModel } = rootRequire("utils/error");
 
-userSignin = async (req, res) => {
+const userSignin = async (req, res) => {
   try {
     const authProvider = req.body.authProvider;
     if (!validation.authProvider(authProvider))
-      throw new ErrorHandler(400, "auth provider not supported");
+      throw clientError.INVALID_AUTH_PROVIDER;
     const gitService = gitServices[authProvider];
     const code = req.body.code;
     const token = await gitService.getToken(code);
@@ -27,9 +28,9 @@ userSignin = async (req, res) => {
     );
     return res.json({ token: jwt });
   } catch (err) {
+    err = convertToErrorModel(err);
     console.log(`❗ ${err}`);
-    // TODO: ichsa code
-    return res.status(err.statusCode || 500).json(err);
+    return res.status(err.status).json(err);
   }
 };
 

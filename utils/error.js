@@ -1,21 +1,25 @@
-class ErrorHandler extends Error {
-  constructor(statusCode, message) {
-    super();
-    this.statusCode = statusCode;
-    this.message = message;
-  }
-}
+const { serverError } = require("../consts/errors");
+const { ErrorModel } = rootRequire("models/error");
+
+const convertToErrorModel = error => {
+  const defaultError = serverError.SERVER_ERROR;
+  return new ErrorModel(
+    error.status || defaultError.status,
+    error.code || defaultError.code,
+    error.message || error
+  );
+};
 
 const handleError = (err, res) => {
-  const { statusCode, message } = err;
+  const { status, code, message } = err;
   res.status(statusCode).json({
     status: "error",
-    statusCode,
+    status,
     message
   });
 };
 
 module.exports = {
-  ErrorHandler,
+  convertToErrorModel,
   handleError
-}
+};
