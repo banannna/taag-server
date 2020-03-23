@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET, JWT_EXPIRE_TIME } = rootRequire("config");
-const errors = rootRequire("consts/errors");
+const { serverError } = rootRequire("consts/errors");
 
 const generateToken = (name, id, authProvider, githubToken) => {
   try {
@@ -10,7 +10,7 @@ const generateToken = (name, id, authProvider, githubToken) => {
     }));
   } catch (err) {
     console.log(`❗ ${err}`);
-    throw errors.status500.ERROR_GENERATING_JWT;
+    throw serverError.ERROR_GENERATING_JWT;
   }
 };
 

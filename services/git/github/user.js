@@ -1,10 +1,10 @@
 const axios = require("axios");
 const validation = rootRequire("utils/validation");
-const errors = rootRequire("consts/errors");
+const { clientError, serverError } = rootRequire("consts/errors");
 
 const getUser = async token => {
   if (!validation.githubToken(token))
-    throw errors.status400.INVALID_GITHUB_TOKEN;
+    throw clientError.INVALID_GITHUB_TOKEN;
   try {
     const config = { headers: { Authorization: `token ${token}` } };
     const res = await axios.get("https://api.github.com/user", config);
@@ -16,7 +16,7 @@ const getUser = async token => {
     };
   } catch (err) {
     console.log(`❗ ${err}`);
-    throw errors.status500.GITHUB_ERROR;
+    throw serverError.GITHUB_ERROR;
   }
 };
 

@@ -1,5 +1,5 @@
 
-const status400 = require("./status400");
-const status500 = require("./status500");
+const clientError = require("./clientError");
+const serverError = require("./serverError");
 
-module.exports = { status400, status500 };
+module.exports = { clientError, serverError };
