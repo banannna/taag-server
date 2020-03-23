@@ -1,11 +1,14 @@
-class ErrorClass extends Error {
-  constructor(status, code, message) {
-    super();
-    this.status = status;
-    this.code = code;
-    this.message = message;
-  }
-}
+const errors = require("../consts/errors");
+const { ErrorModel } = rootRequire("models/error");
+
+const convertToErrorModel = error => {
+  const defaultError = errors.status500.SERVER_ERROR;
+  return new ErrorModel(
+    error.status || defaultError.status,
+    error.code || defaultError.code,
+    error.message || error
+  );
+};
 
 const handleError = (err, res) => {
   const { status, code, message } = err;
@@ -17,6 +20,6 @@ const handleError = (err, res) => {
 };
 
 module.exports = {
-  ErrorClass: ErrorClass,
+  convertToErrorModel,
   handleError
-}
+};

@@ -1,4 +1,4 @@
-const User = rootRequire("models/User");
+const User = rootRequire("models/mongodb/User");
 const validation = rootRequire("utils/validation");
 const errors = rootRequire("consts/errors");
 

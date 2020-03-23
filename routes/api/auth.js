@@ -4,8 +4,9 @@ const mongodbService = rootRequire("services/mongodb");
 const validation = rootRequire("utils/validation");
 const { generateToken } = rootRequire("utils/jwt");
 const errors = rootRequire("consts/errors");
+const { convertToErrorModel } = rootRequire("utils/error");
 
-userSignin = async (req, res) => {
+const userSignin = async (req, res) => {
   try {
     const authProvider = req.body.authProvider;
     if (!validation.authProvider(authProvider))
@@ -27,9 +28,9 @@ userSignin = async (req, res) => {
     );
     return res.json({ token: jwt });
   } catch (err) {
-    console.log(`❗ ${err}`);
-    // TODO: ichsa code
-    return res.status(err.statusCode || 500).json(err);
+    err = convertToErrorModel(err);
+    console.log(err);
+    return res.status(err.status).json(err);
   }
 };
 
