@@ -9,7 +9,6 @@ const generateToken = (name, id, authProvider, githubToken) => {
       expiresIn: JWT_EXPIRE_TIME
     }));
   } catch (err) {
-    console.log(`❗ ${err}`);
     throw serverError.ERROR_GENERATING_JWT;
   }
 };

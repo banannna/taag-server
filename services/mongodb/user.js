@@ -10,7 +10,6 @@ const getUser = async (provider, id, createIfDosntExist = false) => {
     if (!user && createIfDosntExist) return createUser(authProvider, id);
     return user;
   } catch (err) {
-    console.log(`❗ ${err}`);
     throw serverError.MONGO_DOCUMENT_NOT_FOUND;
   }
 };
@@ -22,7 +21,6 @@ const createUser = async (authProvider, id) => {
     }).save();
     return user;
   } catch (err) {
-    console.log(`❗ ${err}`);
     throw serverError.MONGO_ERROR;
   }
 };

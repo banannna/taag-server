@@ -11,12 +11,7 @@ const convertToErrorModel = error => {
 };
 
 const handleError = (err, res) => {
-  const { status, code, message } = err;
-  res.status(statusCode).json({
-    status: "error",
-    status,
-    message
-  });
+  res.status(err.status).json(err);
 };
 
 module.exports = {

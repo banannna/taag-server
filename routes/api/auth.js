@@ -6,7 +6,7 @@ const { generateToken } = rootRequire("utils/jwt");
 const { clientError } = rootRequire("consts/errors");
 const { convertToErrorModel } = rootRequire("utils/error");
 
-const userSignin = async (req, res) => {
+const userSignin = async (req, res, next) => {
   try {
     const authProvider = req.body.authProvider;
     if (!validation.authProvider(authProvider))
@@ -28,9 +28,7 @@ const userSignin = async (req, res) => {
     );
     return res.json({ token: jwt });
   } catch (err) {
-    err = convertToErrorModel(err);
-    console.log(`❗ ${err}`);
-    return res.status(err.status).json(err);
+    next(convertToErrorModel(err));
   }
 };
 

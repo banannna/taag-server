@@ -15,7 +15,6 @@ const getUser = async token => {
       avatar: user.avatar
     };
   } catch (err) {
-    console.log(`❗ ${err}`);
     throw serverError.GITHUB_ERROR;
   }
 };
